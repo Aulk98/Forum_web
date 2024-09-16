@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" class="[scrollbar-gutter:stable]">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.live_title suffix={if assigns[:page_title] != nil, do: " · Forum"}>
+      <%= assigns[:page_title] || "Forum" %>
+    </.live_title>
+    <link rel="icon" type="image/svg+xml" href={~p"/images/logo.svg"} />
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
+    </script>
+  </head>
+  <body class="bg-white">
+    <%= @inner_content %>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+<section>
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <h1 class="card-title">Login</h1>
+          
+          <.simple_form :let={f} for={} action={~p"/auth/login"}>
+            <.input field={f[:email]} type="email" label="Email" />
+            <.input field={f[:password]} type="password" label="password" />
+            <:actions>
+              <.button>Log in</.button>
+            </:actions>
+          </.simple_form>
+          
+          <p class="mt-1 text-lg leading-6 text-gray-600 text-center" >
+            Dont have account <.link navigate={~p"/users/new"}> register here </.link>
+          </p>
+          
+          <div class="card-action flex justify-center">
+            <.link
+              href={~p"/auth/github"}
+              class="btn rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm 
+              hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 
+              focus-visible:outline-indigo-600 btn-cm"
+            >
+              Login with github
+            </.link>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

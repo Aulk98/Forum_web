@@ -1,0 +1,27 @@
+<h1>Topics Lisit</h1>
+
+<ul class="collection overflow-visible">
+  <li :for={{topic, i} <- Enum.with_index(@topics, 1)} class="collection-item text-2xl">
+    <.link navigate={~p"/topics/#{topic}"}><%= "##{i} #{topic.title}" %> </.link>
+    <div class="right flex gap-1">
+      <%= if @current_user && @current_user.id == topic.user_id do %>
+        <div class="hover-container">
+          <.link
+            href={~p"/topics/#{topic}"}
+            method="delete"
+            data-confirm="Are you sure?"
+            class="relative overflow-visible"
+          >
+            <i class="material-icons">delete</i>
+          </.link>
+           <span class="hover-text">Delete</span>
+        </div>
+      <% end %>
+    </div>
+  </li>
+</ul>
+<div class="fixed-action-btn">
+  <.link href={~p"/topics/new"} class="btn-floating btn-large btn-cm">
+    <i class="material-icons">add</i>
+  </.link>
+</div>

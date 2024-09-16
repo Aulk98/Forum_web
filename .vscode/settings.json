@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        // "*.heex": "html-eex"
+    },
+    "emmet.includeLanguages": {
+        "phoenix-heex": "html"
+    },
+    "[phoenix-heex]": {
+        "editor.defaultFoldingRangeProvider": "vscode.html-language-features"
+    }
+}

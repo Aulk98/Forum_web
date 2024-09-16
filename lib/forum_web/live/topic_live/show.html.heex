@@ -1,0 +1,89 @@
+<.header>
+  <%= @topic.title %>
+  <:actions>
+    <%= if @current_user && @current_user.id == @topic.user_id do %>
+      <.link patch={~p"/topics/#{@topic}/edit"} phx-click={JS.push_focus()}>
+        <.button>Edit topic</.button>
+      </.link>
+    <% end %>
+  </:actions>
+</.header>
+<p class="comment-text"><%= @topic.description %></p>
+
+<ul id="comments" phx-update="stream" class="collection overflow-visible">
+  <%= for {id, comment} <- @streams.comments do %>
+    <li id={id} class="collection-item text-xl">
+      <strong><%= "#{comment.user.username}:" %></strong>
+      <div class="right flex gap-1">
+        <%= if @current_user && @current_user.id == comment.user_id do %>
+          <div class="hover-container">
+            <.link
+              patch={~p"/topics/#{@topic}/comments/#{comment}/edit"}
+              class=" relative overflow-visible"
+            >
+              <i class="material-icons">edit</i>
+            </.link>
+            <span class="hover-text">Edit</span>
+          </div>
+          <div class="hover-container">
+            <.link
+              phx-click={JS.push("delete", value: %{comment_id: comment.id}) |> hide("##{id}")}
+              data-confirm="Are you sure?"
+              class="relative overflow-visible"
+            >
+              <i class="material-icons">delete</i>
+            </.link>
+            <span class="hover-text">Delete<%= id %></span>
+          </div>
+        <% end %>
+      </div>
+      <div class="secondary-container">
+        <p class="comment-text text-lg"><%= comment.content %></p>
+      </div>
+    </li>
+  <% end %>
+</ul>
+<%= if @current_user do %>
+  <.link patch={~p"/topics/#{@topic}/comments/new"}>
+    <.button>Add Comment</.button>
+  </.link>
+<% else %>
+  <p class="mt-1 text-lg leading-6 text-gray-600 text-center">
+    <.link navigate={~p"/auth/login"}>Log in</.link> to join the convesation
+  </p>
+<% end %>
+<.back navigate={~p"/"}>Back to topics</.back>
+
+<.modal
+  :if={@live_action in [:new_comment, :edit_comment]}
+  id="comment-modal"
+  show
+  on_cancel={JS.patch(~p"/topics/#{@topic}")}
+>
+  <.live_component
+    module={ForumWeb.TopicLive.CommentComponent}
+    id={@comment.id || :new_comment}
+    title={@page_title}
+    user={@current_user}
+    topic={@topic}
+    action={@live_action}
+    comment={@comment}
+    patch={~p"/topics/#{@topic}"}
+  />
+</.modal>
+
+<.modal
+  :if={@live_action == :edit}
+  id="topic-modal"
+  show
+  on_cancel={JS.patch(~p"/topics/#{@topic}")}
+>
+  <.live_component
+    module={ForumWeb.TopicLive.FormComponent}
+    id={@topic.id}
+    title={@page_title}
+    action={@live_action}
+    topic={@topic}
+    patch={~p"/topics/#{@topic}"}
+  />
+</.modal>

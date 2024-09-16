@@ -1,0 +1,11 @@
+<%!-- <% assigns = assign(assigns, :page_title, "Create New Post") %> --%>
+<%!-- <.live_title page_title={"Create New Post"} /> --%>
+<h1>New Topic</h1>
+
+<.simple_form :let={f} for={@changeset} action={~p"/topics"}>
+  <.input field={f[:title]} type="text" label="Title" label_class="text-2xl text-emerald-800"/>
+  <.input field={f[:description]} type="textarea" label="Description" label_class="text-2xl text-emerald-800"/>
+  <:actions>
+    <.button class="btn btn-cm">Save Topic</.button>
+  </:actions>
+</.simple_form>

@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "windows": {
+        "options": {
+            "shell": {
+                "executable": "cmd.exe",
+                "args": [
+                    "/K",
+                    "\"C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Auxiliary/Build/vcvarsall.bat\"",
+                    "amd64",
+                    "&&"
+                ]
+            }
+        }
+    }
+    // "tasks": [
+    //     {
+    //         "label": "Run vcvarsall.bat",
+    //         "type": "shell",
+    //         "command": "\"C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Auxiliary/Build/vcvarsall.bat\" amd64",
+    //         "group": "build",
+    //         "presentation": {
+    //             "echo": true,
+    //             "reveal": "always",
+    //             "focus": false,
+    //             "panel": "shared"
+    //         },
+    //         "runOptions": {
+    //             "runOn": "folderOpen"
+    //         }
+    //     }
+    // ]
+}
